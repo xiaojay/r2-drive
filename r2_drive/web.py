@@ -493,8 +493,33 @@ def preview(key):
         content = response["Body"].read()
         content_type = response["ContentType"]
         
+        # 检测 Markdown 文件
+        md_extensions = [".md", ".markdown", ".mdown", ".mkd", ".mkdn"]
+        is_markdown = Path(key).suffix.lower() in md_extensions
+        
         # 根据类型处理
-        if content_type.startswith("text/") or content_type in [
+        if is_markdown:
+            # Markdown 渲染
+            try:
+                import markdown
+                md = markdown.Markdown(extensions=["fenced_code", "tables", "codehilite", "toc"])
+                text = content.decode("utf-8")
+                html_content = md.convert(text)
+            except ImportError:
+                # 如果没有 markdown 库，回退到纯文本
+                text = content.decode("utf-8")
+                html_content = f"<pre>{text}</pre>"
+            except Exception:
+                text = content.decode("latin-1")
+                html_content = f"<pre>{text}</pre>"
+            
+            return render_template(
+                "preview_markdown.html",
+                key=key,
+                content=html_content
+            )
+        
+        elif content_type.startswith("text/") or content_type in [
             "application/json", "application/javascript", "application/xml"
         ]:
             # 文本文件

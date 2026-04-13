@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ key }} - R2 Drive</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .preview-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .preview-header h1 {
+            font-size: 18px;
+            margin: 0;
+            word-break: break-all;
+        }
+        .text-preview {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .text-preview::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .text-preview::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <div class="preview-header">
+            <h1>📄 {{ key }}</h1>
+            <div>
+                <a href="/api/download/{{ key }}" class="btn">⬇️ 下载</a>
+                <a href="/" class="btn btn-secondary">返回</a>
+            </div>
+        </div>
+        <pre class="text-preview">{{ content }}</pre>
+    </div>
+</body>
+</html>

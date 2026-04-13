@@ -8,12 +8,19 @@ with open("requirements.txt", "r", encoding="utf-8") as f:
 
 setup(
     name="r2-drive",
-    version="1.0.0",
+    version="1.1.0",
     author="Hermes Agent",
-    description="Cloudflare R2 网盘 CLI 工具",
+    description="Cloudflare R2 网盘 CLI 和 Web 工具",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
+    package_data={
+        "r2_drive": [
+            "templates/*.html",
+            "static/*.css",
+            "static/*.js",
+        ],
+    },
     python_requires=">=3.8",
     install_requires=requirements,
     entry_points={

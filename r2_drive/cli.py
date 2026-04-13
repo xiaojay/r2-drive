@@ -739,5 +739,23 @@ def pull(remote_path: str, output: str, workers: int):
         console.print(f"[red]❌ 下载失败: {e}[/red]")
 
 
+@cli.command()
+@click.option("--host", "-h", default="127.0.0.1", help="监听地址")
+@click.option("--port", "-p", default=5000, help="监听端口")
+@click.option("--debug", is_flag=True, help="调试模式")
+def web(host: str, port: int, debug: bool):
+    """启动 Web 界面"""
+    try:
+        from .web import run_web_server
+        run_web_server(host=host, port=port, debug=debug)
+    except ImportError:
+        console.print("[red]❌ Web 模块加载失败[/red]")
+        console.print("请确保已安装 Flask: pip install flask")
+    except KeyboardInterrupt:
+        console.print("\n[yellow]👋 Web 服务器已停止[/yellow]")
+    except Exception as e:
+        console.print(f"[red]❌ 启动失败: {e}[/red]")
+
+
 if __name__ == "__main__":
     cli()

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ key }} - R2 Drive</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .preview-container {
+            padding: 20px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .preview-header h1 {
+            font-size: 18px;
+            margin: 0;
+            word-break: break-all;
+        }
+        .image-preview {
+            text-align: center;
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .image-preview img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <div class="preview-header">
+            <h1>🖼️ {{ key }}</h1>
+            <div>
+                <a href="/api/download/{{ key }}" class="btn">⬇️ 下载</a>
+                <a href="/" class="btn btn-secondary">返回</a>
+            </div>
+        </div>
+        <div class="image-preview">
+            <img src="data:{{ content_type }};base64,{{ data }}" alt="{{ key }}">
+        </div>
+    </div>
+</body>
+</html>
